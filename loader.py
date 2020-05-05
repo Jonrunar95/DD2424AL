@@ -129,31 +129,31 @@ class ImageBase:
         plt.subplots_adjust(wspace=0.05, hspace=0.05)
         plt.show()
 
-    
-base = ImageBase('metadata.csv', 'images')
-ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['NORMAL']}] , shape = (256,256))
+if __name__ == "__main__":
+    base = ImageBase('metadata.csv', 'images')
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['NORMAL']}] , shape = (256,256))
 
-ImageBase.montage(ims, figsize = (15, 15))
-'''
-dic = {'modality' : 'X-ray', 'finding' : 'NORMAL', 'filename' : ''}
+    ImageBase.montage(ims, figsize = (15, 15))
+    '''
+    dic = {'modality' : 'X-ray', 'finding' : 'NORMAL', 'filename' : ''}
 
-directory = 'kaggle_data'
-c = 0
-for dirpath, dirnames, filenames in os.walk(directory):
-    c += len(filenames)
-for dirpath, dirnames, filenames in os.walk(directory):
-    if 'NORMAL' in dirpath:
-        dic['finding'] = 'NORMAL'
-        for f in filenames:
-            print('{0} files remaining'.format(c))
-            dic['filename'] = f
-            base.add_image(dic, os.path.join(dirpath, f))
-            c-=1
-    else:
-        dic['finding'] = 'PNEUMONIA'
-        for f in filenames:
-            print('{0} files remaining'.format(c))
-            dic['filename'] = f
-            base.add_image(dic, os.path.join(dirpath, f))
-            c-=1
-'''
+    directory = 'kaggle_data'
+    c = 0
+    for dirpath, dirnames, filenames in os.walk(directory):
+        c += len(filenames)
+    for dirpath, dirnames, filenames in os.walk(directory):
+        if 'NORMAL' in dirpath:
+            dic['finding'] = 'NORMAL'
+            for f in filenames:
+                print('{0} files remaining'.format(c))
+                dic['filename'] = f
+                base.add_image(dic, os.path.join(dirpath, f))
+                c-=1
+        else:
+            dic['finding'] = 'PNEUMONIA'
+            for f in filenames:
+                print('{0} files remaining'.format(c))
+                dic['filename'] = f
+                base.add_image(dic, os.path.join(dirpath, f))
+                c-=1
+    '''
