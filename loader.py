@@ -6,9 +6,10 @@ import matplotlib.pyplot as plt
 import pickle
 from shutil import copy
 
-abspath = os.path.abspath(__file__)
-dname = os.path.dirname(abspath)
-os.chdir(dname)
+if __name__ == "__main__":
+    abspath = os.path.abspath(__file__)
+    dname = os.path.dirname(abspath)
+    os.chdir(dname)
 
 class ImageBase:
     def __init__(self, meta_loc, image_dir):
