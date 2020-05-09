@@ -353,8 +353,6 @@ patientid,offset,sex,age,finding,survival,intubated,intubation_present,went_icu,
 196,4.0,M,73.0,COVID-19,,Y,Y,,,,,,,,,PA,X-ray,,,images,extubation-4.jpg,,https://radiologyassistant.nl/chest/covid-19-ct-findings-in-25-patients16,,Day 4: bilateral consolidations intubated. History: 73 year old male with aorta insufficiency and pacemaker was admitted to the hospital with fever and coughing after being in an area with COVID-19. PCR positive. Follow-up: extubated after 9 days of mechanical ventilation.,,,Covid-19
 196,8.0,M,73.0,COVID-19,,Y,,,,,,,,,,PA,X-ray,,,images,extubation-8.jpg,,https://radiologyassistant.nl/chest/covid-19-ct-findings-in-25-patients17,,Day 8: bilateral consolidation. History: 73 year old male with aorta insufficiency and pacemaker was admitted to the hospital with fever and coughing after being in an area with COVID-19. PCR positive. Follow-up: extubated after 9 days of mechanical ventilation.,,,Covid-19
 196,13.0,M,73.0,COVID-19,,,,,,Y,,,,,,PA,X-ray,,,images,extubation-13.jpg,,https://radiologyassistant.nl/chest/covid-19-ct-findings-in-25-patients18,,Day 13: extubation. History: 73 year old male with aorta insufficiency and pacemaker was admitted to the hospital with fever and coughing after being in an area with COVID-19. PCR positive. Follow-up: extubated after 9 days of mechanical ventilation.,,,Covid-19
-,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,.DS_Store,,,,,,,
-,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,.DS_Store,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person147_bacteria_706.jpeg,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person100_bacteria_482.jpeg,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person78_bacteria_382.jpeg,,,,,,,
@@ -979,7 +977,6 @@ patientid,offset,sex,age,finding,survival,intubated,intubation_present,went_icu,
 ,,,,NORMAL,,,,,,,,,,,,,X-ray,,,,NORMAL2-IM-0292-0001.jpeg,,,,,,,
 ,,,,NORMAL,,,,,,,,,,,,,X-ray,,,,NORMAL2-IM-0221-0001.jpeg,,,,,,,
 ,,,,NORMAL,,,,,,,,,,,,,X-ray,,,,NORMAL2-IM-0198-0001.jpeg,,,,,,,
-,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,.DS_Store,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person63_bacteria_306.jpeg,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person1438_bacteria_3721.jpeg,,,,,,,
 ,,,,PNEUMONIA,,,,,,,,,,,,,X-ray,,,,person755_bacteria_2659.jpeg,,,,,,,

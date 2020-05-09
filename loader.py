@@ -132,9 +132,9 @@ class ImageBase:
 
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
-    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['NORMAL']}] , shape = (256,256))
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['NORMAL', 'PNEUMONIA']}] , shape = (256,256))
 
-    ImageBase.montage(ims, figsize = (15, 15))
+    #mageBase.montage(ims, figsize = (15, 15))
     '''
     dic = {'modality' : 'X-ray', 'finding' : 'NORMAL', 'filename' : ''}
 
