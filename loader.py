@@ -39,7 +39,7 @@ class ImageBase:
             self.meta[col_name] = default
             self.meta.to_csv(self.meta_loc, index = False)
 
-    def get_category(self, union, restrictions, shape, RGB_to_grayscale=True):
+    def get_category(self, union, restrictions, shape, size = None, RGB_to_grayscale=True):
         '''
         Returns the union of reshaped images corresponding to a field having a certain property
 
@@ -69,6 +69,12 @@ class ImageBase:
 
                 imgs = imgs.intersection(restrict_imgs)
 
+        if size != None:
+            try:
+                imgs = np.random.choice([x for x in imgs], size = size, replace = False)
+            except ValueError as identifier:
+                raise Exception('{0} ---- max query size = {1}'.format(identifier, len(imgs)))
+                
         images = self.load_images(imgs)
         arr = np.zeros((len(imgs), *shape))
 
@@ -132,7 +138,7 @@ class ImageBase:
 
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
-    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['NORMAL', 'PNEUMONIA']}] , shape = (256,256))
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['COVID-19']}] , shape = (256,256), size = 235)
 
     #mageBase.montage(ims, figsize = (15, 15))
     '''
