@@ -138,7 +138,7 @@ class ImageBase:
 
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
-    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['COVID-19']}] , shape = (256,256), size = 235)
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['COVID-19']}] , shape = (256,256), size = 12)
 
     #mageBase.montage(ims, figsize = (15, 15))
     '''
