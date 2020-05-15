@@ -33,9 +33,12 @@ class ImageBase:
             #print('Loaded {0}/{1} images'.format(i+1, len(names)))
 
         return imgs
-    def display_image_statistics(self, resolution = (100, 100)):
+    def display_image_statistics(self, specific_finding = None, resolution = (100, 100)):
         print('Computing image statistics...')
-        names = list(self.meta[self.meta['modality'] == 'X-ray']['filename'])
+        if specific_finding != None:
+            names = self.meta.loc[(self.meta['modality'] == 'X-ray') & (self.meta['finding'] == specific_finding),'filename']
+        else:
+            names = list(self.meta[self.meta['modality'] == 'X-ray']['filename'])
         pixels_list = []
         shapes = []
         for f in tqdm(names):
