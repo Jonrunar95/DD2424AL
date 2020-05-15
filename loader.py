@@ -33,24 +33,34 @@ class ImageBase:
             #print('Loaded {0}/{1} images'.format(i+1, len(names)))
 
         return imgs
-    def display_image_statistics(self):
+    def display_image_statistics(self, resolution = (100, 100)):
         print('Computing image statistics...')
         names = list(self.meta[self.meta['modality'] == 'X-ray']['filename'])
         pixels_list = []
+        shapes = []
         for f in tqdm(names):
             img = Image.open(os.path.join(self.image_dir,f))
             img.load()
             
             pixels = np.prod(img.size)
-            
+            shapes.append([img.size[0],img.size[1]])
             pixels_list.append(pixels)
         
+        shapes = np.array(shapes)
+
         stat = stats.describe(np.array(pixels_list))
         
         print('-- min pixel count: ', stat.minmax[0])
         print('-- max pixel count: ', stat.minmax[1])
         print('-- mean pixel count: ', stat.mean)
         print('-- variance pixel count: ', stat.variance)
+
+        plt.hist2d(shapes[:,0], shapes[:,1], resolution, cmap=plt.cm.jet)
+        plt.xlabel('Width')
+        plt.ylabel('Height')
+        plt.title('Distribution of image resolution')
+        plt.colorbar()
+        plt.show()
         print('Done!')
 
         
@@ -172,8 +182,8 @@ class ImageBase:
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
     #base.expand_meta()
-    #base.display_image_statistics()
-    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['PNEUMONIA, BACTERIA']}] , shape = (256,256))
+    base.display_image_statistics()
+    #ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['PNEUMONIA, BACTERIA']}] , shape = (256,256))
 
     #mageBase.montage(ims, figsize = (15, 15))
     '''
