@@ -5,6 +5,8 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import pickle
 from shutil import copy
+from scipy import stats
+from tqdm import tqdm
 
 if __name__ == "__main__":
     abspath = os.path.abspath(__file__)
@@ -22,16 +24,36 @@ class ImageBase:
         return pd.read_csv(loc)
 
     def load_images(self, names):
-        load_path = os.path.join('data', '{0}_dat.pickle'.format(self.image_dir))
+        #load_path = os.path.join('data', '{0}_dat.pickle'.format(self.image_dir))
         imgs = {}
-        for i,f in enumerate(names):
+        for f in tqdm(names):
             img = Image.open(os.path.join(self.image_dir,f))
             img.load()
             imgs[f] = img
-            print('Loaded {0}/{1} images'.format(i+1, len(names)))
+            #print('Loaded {0}/{1} images'.format(i+1, len(names)))
 
         return imgs
+    def display_image_statistics(self):
+        print('Computing image statistics...')
+        names = list(self.meta[self.meta['modality'] == 'X-ray']['filename'])
+        pixels_list = []
+        for f in tqdm(names):
+            img = Image.open(os.path.join(self.image_dir,f))
+            img.load()
+            
+            pixels = np.prod(img.size)
+            
+            pixels_list.append(pixels)
+        
+        stat = stats.describe(np.array(pixels_list))
+        
+        print('-- min pixel count: ', stat.minmax[0])
+        print('-- max pixel count: ', stat.minmax[1])
+        print('-- mean pixel count: ', stat.mean)
+        print('-- variance pixel count: ', stat.variance)
+        print('Done!')
 
+        
     def add_meta_field(self, col_name, default = ''):
         if col_name in self.meta:
             raise Exception("Field already exists in meta.")
@@ -100,8 +122,19 @@ class ImageBase:
 
         copy(im_loc, self.image_dir)
         self.meta.to_csv(self.meta_loc, index = False)
+    ''' 
+    def expand_meta(self):
+        modifier = 'finding'
+        source = 'filename'
         
 
+        for x,y in zip(self.meta[modifier], self.meta[source]):
+            if 'virus' in y and x == 'PNEUMONIA':
+                self.meta.loc[self.meta[source] == y, modifier] += ', {0}'.format('VIRUS')
+            if 'bacteria' in y and x == 'PNEUMONIA':
+                self.meta.loc[self.meta[source] == y, modifier] += ', {0}'.format('BACTERIA')
+        self.meta.to_csv(self.meta_loc, index = False)
+    '''
     @staticmethod
     def montage(ims, figsize = (5,5), is_row = False, title = ''):
         shape = ims.shape[1:]
@@ -138,7 +171,9 @@ class ImageBase:
 
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
-    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['COVID-19']}] , shape = (256,256), size = 12)
+    #base.expand_meta()
+    #base.display_image_statistics()
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['PNEUMONIA, BACTERIA']}] , shape = (256,256))
 
     #mageBase.montage(ims, figsize = (15, 15))
     '''
