@@ -76,13 +76,14 @@ class ImageBase:
             self.meta[col_name] = default
             self.meta.to_csv(self.meta_loc, index = False)
 
-    def get_category(self, union, restrictions, shape, size = None, RGB_to_grayscale=True):
+    def get_category(self, union, restrictions, shape, size = None, RGB_to_grayscale=True, seed = None):
         '''
         Returns the union of reshaped images corresponding to a field having a certain property
 
         fields -> dictionary with key as desired field and container for desired properties
         '''
-
+        if seed != None:
+            np.random.seed(seed)
         imgs = set()
 
         '''
@@ -108,6 +109,7 @@ class ImageBase:
 
         if size != None:
             try:
+                imgs = sorted(list(imgs))
                 imgs = np.random.choice([x for x in imgs], size = size, replace = False)
             except ValueError as identifier:
                 raise Exception('{0} ---- max query size = {1}'.format(identifier, len(imgs)))
@@ -157,7 +159,8 @@ class ImageBase:
 
         rows = int(num**0.5)
         cols = rows
-
+        if rows <= 1:
+            is_row = True
         if not is_row:
             fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize = figsize)
             
@@ -187,10 +190,10 @@ class ImageBase:
 if __name__ == "__main__":
     base = ImageBase('metadata.csv', 'images')
     #base.expand_meta()
-    base.display_image_statistics()
-    #ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['PNEUMONIA, BACTERIA']}] , shape = (256,256))
+    #base.display_image_statistics()
+    ims = base.get_category(union = [{'modality' : ['X-ray']}], restrictions = [{'finding' : ['PNEUMONIA, BACTERIA']}] , shape = (256,256), size = 2, seed = 42)
 
-    #mageBase.montage(ims, figsize = (15, 15))
+    ImageBase.montage(ims, figsize = (15, 15))
     '''
     dic = {'modality' : 'X-ray', 'finding' : 'NORMAL', 'filename' : ''}
 
