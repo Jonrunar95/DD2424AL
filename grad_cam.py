@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 
-# https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/?fbclid=IwAR3mV62vSMoE2LIB77EPHaLc-cyeNnO_cz9xTliYWyMP9jgbFA2fGeVaOJw
+# adapted from https://www.pyimagesearch.com/2020/03/09/grad-cam-visualize-class-activation-maps-with-keras-tensorflow-and-deep-learning/?fbclid=IwAR3mV62vSMoE2LIB77EPHaLc-cyeNnO_cz9xTliYWyMP9jgbFA2fGeVaOJw
 
 
 class GradCAM:
@@ -86,16 +86,3 @@ class GradCAM:
 
         # return the resulting heatmap to the calling function
         return heatmap
-
-    def overlay_heatmap(self, heatmap, image, alpha=0.5,
-                        colormap=cv2.COLORMAP_VIRIDIS):
-        # apply the supplied color map to the heatmap and then
-        # overlay the heatmap on the input image
-        heatmap = cv2.applyColorMap(heatmap, colormap)
-        print(heatmap.shape, image.shape)
-        print(type(image), type(heatmap))
-        output = cv2.addWeighted(image, alpha, heatmap, 1 - alpha, 0)
-
-        # return a 2-tuple of the color mapped heatmap and the output,
-        # overlaid image
-        return (heatmap, output)
